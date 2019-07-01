@@ -1,0 +1,29 @@
+
+version: "2"
+
+services:
+
+  testexabeam.com:
+    build: .
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+    hostname: testexabeam.com
+    networks:
+      lab2:
+        ipv4_address: 172.25.11.10
+    environment:
+      - myhostname=testexabeam.com
+      - mydestination=testexabeam.com
+      - networks=0.0.0.0/8
+      - user=fake@fake.com #TODO
+      - pass=fake #TODO
+    restart: always
+
+networks:
+  lab2:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.25.11.0/24
